@@ -1,0 +1,32 @@
+AddDefaultCharset utf-8
+php_value upload_max_filesize 30M
+php_value post_max_size 30M
+ErrorDocument 404 /404error.php
+
+
+#Убираем расширение страницы .php
+
+#RewriteEngine on
+#RewriteBase /
+#RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.php\ HTTP
+#RewriteRule ^([^.]+)\.php$ tomato-geeks.xyz/$1 [R=301,L]
+#RewriteCond %{REQUEST_URI} !(\.[^./]+)$
+#RewriteCond %{REQUEST_fileNAME} !-d
+#RewriteCond %{REQUEST_fileNAME} !-f
+#RewriteRule (.*) /$1.php
+
+
+
+#Защищаем .htaccess файл
+<files .htaccess>
+order allow,deny
+deny from all
+</files>
+
+
+#Сжимаем элементы с помощью mod_deflate
+<ifmodule mod_deflate.c="">
+<filesmatch .(js|css|jpg|gif|png|tiff|ico)$="">
+SetOutputFilter DEFLATE
+</filesmatch>
+</ifmodule>
